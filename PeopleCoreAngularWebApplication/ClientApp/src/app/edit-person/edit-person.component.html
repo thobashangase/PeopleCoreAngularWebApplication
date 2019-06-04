@@ -1,0 +1,69 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Edit Person</h1>
+    <form (ngSubmit)="onSubmit()" #personForm="ngForm">
+      <input type="hidden" id="id" name="id" [(ngModel)]="model.id" #id="ngModel"/>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required minlength="3" [(ngModel)]="model.name" name="name" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            Name must be at least 3 characters long.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" class="form-control" id="phone" required minlength="10" maxlength="10" [(ngModel)]="model.phone" name="phone" #phone="ngModel">
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+          <div *ngIf="phone.errors.required">
+            Phone is required.
+          </div>
+          <div *ngIf="phone.errors.minlength || phone.errors.maxlength">
+            Phone must be avalid SA phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" required minlength="7" [(ngModel)]="model.email" name="email" #email="ngModel">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+          <div *ngIf="email.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="phone.errors.minlength">
+            Email must be at least 7 characters long.
+          </div>
+        </div>
+      </div>
+
+      <a class="btn btn-link" [routerLink]="['/people']">Back to people</a> &nbsp;
+      <button type="submit" class="btn btn-success" [disabled]="!personForm.form.valid">Submit</button>
+
+    </form>
+  </div>
+</div>
+
+<div [hidden]="!submitted">
+  <h2>Preview your changes:</h2>
+  <div class="row">
+    <div class="col-xs-3"><strong>Name: &nbsp;</strong></div>
+    <div class="col-xs-9">{{ model.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3"><strong>Phone: &nbsp;</strong></div>
+    <div class="col-xs-9">{{ model.phone }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3"><strong>Email: &nbsp;</strong></div>
+    <div class="col-xs-9">{{ model.email }}</div>
+  </div>
+  <br>
+  <button class="btn btn-primary" (click)="submitted=false">Edit</button> &nbsp;
+  <button class="btn btn-success" (click)="updatePerson(model)">Update</button>
+</div>

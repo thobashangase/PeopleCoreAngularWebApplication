@@ -1,0 +1,27 @@
+<h1>Thoba's People</h1>
+
+<p><a class="btn btn-primary" [routerLink]='["/add-person"]'>Add</a></p>
+
+<p *ngIf="!people"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="people">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of people">
+      <td>{{ person.name }}</td>
+      <td>{{ person.phone }}</td>
+      <td>{{ person.email }}</td>
+      <td>
+        <a class="btn btn-link" [routerLink]="['/people/edit/', person.id]">Edit</a>
+        <button class="btn btn-link" (click)="deletePerson(person)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
